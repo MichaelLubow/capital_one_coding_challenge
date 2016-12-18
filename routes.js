@@ -21,10 +21,8 @@ server.post('/measurements', routeHandlers.postMeasurements);
 server.get('/measurements/:date', routeHandlers.getMeasurementsByDate);
 server.put('/measurements/:timestamp', routeHandlers.updateMeasurement);
 server.patch('/measurements/:timestamp', routeHandlers.patchMeasurement);
-
-// server.delete('/measurements/:timestamp', routeHandlers.deleteMeasurementTimestamp);
-
-//server.get('/stats', routeHandlers.getStats);
+server.del('/measurements/:timestamp', routeHandlers.deleteMeasurement);
+server.get('/stats', routeHandlers.getStats);
 
 
 console.log('server is ', server.name);

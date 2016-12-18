@@ -94,54 +94,51 @@ var routeHandlers = {
     }
   },
 
-  patchMeasurement: function patchMeasurement(req, res){
+  patchMeasurement: function patchMeasurement(req, res) {
     var updatedMeasurement = req.body;
     var date = new Date(updatedMeasurement.timestamp);
 
     console.log('updatedMeasurement is ', updatedMeasurement);
-    if(!isInputValid(updatedMeasurement)){
+    if (!isInputValid(updatedMeasurement)) {
       console.log('unable to update, invalid value(s)');
       res.send(400);
     }
-    else if(!updateRequestValid(req, date)){
+    else if (!updateRequestValid(req, date)) {
       console.log('unable to update, timestamps don\'t match');
       res.send(409);
     }
     else {
-      measurementData.findAndUpdate({key: 'timestamp', value: date}, updatedMeasurement);
-      console.log('successful partial update');
+      if (measurementData.findAndUpdate({key: 'timestamp', value: date}, updatedMeasurement)) {
+        console.log('successful partial update');
+        res.send(204);
+      }
+      else {
+        console.log('not able to partial update as the value doesn\'t exist');
+        res.send(404);
+      }
+    }
+  },
+
+  deleteMeasurement: function deleteMeasurement(req, res){
+    console.log('req.params is ', req.params);
+    var date = new Date(req.params.timestamp);
+    if(measurementData.findAndDelete({key: 'timestamp', value: date})){
+      console.log('successful delete');
       res.send(204);
     }
+    else {
+      console.log('not able to delete as the value doesn\'t exist');
+      res.send(404);
+    }
+  },
+
+  getStats: function getStats(req, res){
+    console.log('req.params is ', req.params);
+    console.log("req.query ", req.query);
+    var statistics = measurementData.calculateStats(req.query);
+    res.send(200, {statistics: statistics});
   }
 
-
-  // getMuseums: function getMuseums(req, res, next) {
-  //   MuseumModel.find({}, function(err, docs) {
-  //     if (err) {
-  //       console.error("error is ", err);
-  //       res.send(err);
-  //     }
-  //     else {
-  //       console.log("response is ", docs);
-  //       res.send(docs);
-  //     }
-  //   });
-  // },
-  //
-  // getMuseumById: function getMuseumById(req, res, next) {
-  //   console.log("I am here");
-  //   console.log(req.params.id);
-  //   MuseumModel.findById(req.params.id, function(err, doc){
-  //     if(err){
-  //       console.error("error is ", error);
-  //       res.send(err);
-  //     }
-  //     else{
-  //       console.log("response is ", doc);
-  //       res.send(doc);
-  //     }
-  //   });
-  // }
 };
 
 module.exports = routeHandlers;
