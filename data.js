@@ -6,24 +6,10 @@ var publicMethods = {
   },
 
   find: function find(obj){
-    console.log('obj is ', obj);
     return measurements.filter(function(measurement){
-      console.log('measurement[obj.key] is ', measurement[obj.key]);
-      console.log('obj.value is ', obj.value);
       if(obj.key === 'timestamp') {
         if(obj.isDate){
-          console.log('inIsDate');
           var queryDate = obj.value;
-          console.log(queryDate.getDate());
-          console.log(queryDate.getMonth());
-          console.log(queryDate.getFullYear());
-
-          console.log("-----------");
-
-          console.log(measurement[obj.key].getDate());
-          console.log(measurement[obj.key].getMonth());
-          console.log(measurement[obj.key].getFullYear());
-
           return (measurement[obj.key].getDate() === queryDate.getDate() &&
             measurement[obj.key].getMonth() === queryDate.getMonth() &&
             measurement[obj.key].getFullYear() === queryDate.getFullYear()
@@ -47,18 +33,12 @@ var publicMethods = {
     console.log('measurements is ', measurements);
     var updated = false;
     measurements.forEach(function(measurement, index){
-      // console.log("obj ", obj);
-      // console.log("measurement at index " + index, measurement);
-      console.log('measurement[obj.key] ', measurement[obj.key]);
-      console.log('obj.value ', obj.value);
       if(measurement[obj.key].getTime() === obj.value.getTime()){
-        console.log('obj and measurement are equal for the the value you are searching on');
-        console.log('index to replace is ', index);
         measurements.splice(index, 1, updatedMeasurement);//remove the old measurement and replace with the correct one
         updated = true;
       }
     });
-    console.log('measurements is now ', measurements);//check
+    console.log('measurements is now ', measurements);
     return updated;
   },
 
@@ -66,18 +46,9 @@ var publicMethods = {
     console.log('measurements is ', measurements);
     var updated = false;
     measurements.forEach(function(measurement, index){
-      // console.log("obj ", obj);
-      // console.log("measurement at index " + index, measurement);
-      console.log('measurement[obj.key] ', measurement[obj.key]);
-      console.log('obj.value ', obj.value);
       if(measurement[obj.key].getTime() === obj.value.getTime()){
-        console.log('obj and measurement are equal for the the value you are searching on');
-        console.log('index to replace is ', index);
-        console.log("measurement ", measurement);
-        console.log("updatedMeasurement ", updatedMeasurement);
         //for each property in the updatedMeasurement, let's replace the property value in the original measurement
         for(var p in updatedMeasurement){
-          console.log('p is ', p);
           if(p !== 'timestamp'){
             measurement[p] = updatedMeasurement[p];
           }
@@ -85,7 +56,7 @@ var publicMethods = {
         updated = true;
       }
     });
-    console.log('measurements is now ', measurements);//check
+    console.log('measurements is now ', measurements);
     return updated;
   },
 
@@ -93,28 +64,19 @@ var publicMethods = {
     console.log('measurements is ', measurements);
     var updated = false;
     measurements.forEach(function(measurement, index){
-      console.log('measurement[obj.key] ', measurement[obj.key]);
-      console.log('obj.value ', obj.value);
       if(measurement[obj.key].getTime() === obj.value.getTime()){
-        console.log('obj and measurement are equal for the the value you are searching on');
-        console.log('index to replace is ', index);
         measurements.splice(index, 1);//remove the old measurement
         updated = true;
       }
     });
-    console.log('measurements is now ', measurements);//check
+    console.log('measurements is now ', measurements);
     return updated;
   },
 
   calculateStats: function calculateStats(obj){
     var findMin = function findMin(metric){
-      console.log('Inside findMin');
-
       var fromDateTime = (new Date(obj.fromDateTime)).getTime();
       var toDateTime = (new Date(obj.toDateTime)).getTime();
-
-      console.log('fromDateTime ', fromDateTime);
-      console.log("toDateTime ", toDateTime);
 
       //ensure the array is filtered by the timestamp range
       var filteredArr = measurements.filter(function(measurement){
@@ -139,8 +101,6 @@ var publicMethods = {
     };
 
     var findMax = function findMax(metric){
-      console.log('Inside findMax');
-
       var fromDateTime = (new Date(obj.fromDateTime)).getTime();
       var toDateTime = (new Date(obj.toDateTime)).getTime();
 
@@ -149,7 +109,6 @@ var publicMethods = {
         return measurement[metric] && measurement.timestamp.getTime() >= fromDateTime && measurement.timestamp.getTime() < toDateTime;
       });
 
-      console.log('filteredArr is ', filteredArr);
       if(filteredArr.length > 0) {
         var max = filteredArr[0][metric];
 
@@ -166,7 +125,6 @@ var publicMethods = {
     };
 
     var findAverage = function findAverage(metric){
-      console.log('Inside findAverage');
       var fromDateTime = (new Date(obj.fromDateTime)).getTime();
       var toDateTime = (new Date(obj.toDateTime)).getTime();
 
@@ -175,7 +133,6 @@ var publicMethods = {
         return measurement[metric] && measurement.timestamp.getTime() >= fromDateTime && measurement.timestamp.getTime() < toDateTime;
       });
 
-      console.log('filteredArr is ', filteredArr);
       if(filteredArr.length > 0) {
         var sum = 0;
 
@@ -189,7 +146,6 @@ var publicMethods = {
         return null;
       }
     };
-
 
     var statistics = [];
 
