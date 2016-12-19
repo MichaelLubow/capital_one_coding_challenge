@@ -180,7 +180,7 @@ makePostRequest('http://localhost:8080/measurements', {
 //makeGetRequest('http://localhost:8080/measurements/2015-09-01');
 
 //Scenario 4 (Get measurement from a day where no measurements were taken.)
-// makeGetRequest('http://localhost:8080/measurements/2015-09-03');
+//makeGetRequest('http://localhost:8080/measurements/2015-09-03');
 
 //------------------------------------------------------------------------
 //  Feature 3
