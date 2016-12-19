@@ -167,31 +167,45 @@ var publicMethods = {
           sum = sum + measurement[metric];
         });
 
-        return {metric: metric, stat: 'average', value: sum / filteredArr.length};
+        return {metric: metric, stat: 'average', value: +(sum / filteredArr.length).toFixed(2)};
       }
       else {
         return null;
       }
     };
 
+
     var statistics = [];
-    if(obj.stat.includes('min')){
-      var minResult = findMin(obj.metric);
-      if(minResult) {
-        statistics.push(minResult);
+
+    var findStats = function findStats(metric){
+      if(obj.stat.includes('min')){
+        var minResult = findMin(metric);
+        if(minResult) {
+          statistics.push(minResult);
+        }
       }
+      if(obj.stat.includes('max')){
+        var maxResult = findMax(metric);
+        if(maxResult) {
+          statistics.push(maxResult);
+        }
+      }
+      if(obj.stat.includes('average')){
+        var averageResult = findAverage(metric);
+        if(averageResult) {
+          statistics.push(averageResult);
+        }
+      }
+    };
+
+    //if we are reporting on more than one metric
+    if(Array.isArray(obj.metric)){
+      obj.metric.forEach(function(metric){
+        findStats(metric);
+      });
     }
-    if(obj.stat.includes('max')){
-      var maxResult = findMax(obj.metric);
-      if(maxResult) {
-        statistics.push(maxResult);
-      }
-    }
-    if(obj.stat.includes('average')){
-      var averageResult = findAverage(obj.metric);
-      if(averageResult) {
-        statistics.push(averageResult);
-      }
+    else{//there is a single metric
+      findStats(obj.metric);
     }
 
     console.log('statistics is ', statistics);
