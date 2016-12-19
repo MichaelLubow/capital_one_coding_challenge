@@ -66,6 +66,7 @@ function makePostRequest(apiEndpointURL, data){
         console.log("Inside success of POST Request");
         console.log("The results are:");
         console.log("-----------------------------------");
+        console.log("res.headers ", res.headers);
         console.log("res.status ", res.status);
       }
       else {

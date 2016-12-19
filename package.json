@@ -4,6 +4,7 @@
   "description": "Capital One Coding Challenge",
   "main": "routes.js",
   "scripts": {
+    "prepare": "echo \"Everything's good to go!\"",
     "start": "node routes.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

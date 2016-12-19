@@ -54,11 +54,12 @@ var routeHandlers = {
 
   postMeasurements: function postMeasurements(req, res){
     var measurement = req.body;
+    var originalMeasurement = Object.assign({}, measurement);
     measurement.timestamp = new Date(measurement.timestamp);
     if(isInputValid(measurement)){
       measurementData.insert(measurement);
       console.log('successful insert');
-      res.header('location', '/measurements/' + measurement.timestamp);
+      res.header('location', '/measurements/' + originalMeasurement.timestamp);
       res.send(201);
     }
     else {

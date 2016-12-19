@@ -3,6 +3,7 @@ var measurements = [];
 var publicMethods = {
   insert: function insert(measurement) {
     measurements.push(measurement);
+    console.log('measurements is now ', measurements);
   },
 
   find: function find(obj){
