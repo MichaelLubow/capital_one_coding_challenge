@@ -1,5 +1,3 @@
-var _isEqual = require('lodash/isEqual');
-
 var measurements = [];
 
 var publicMethods = {

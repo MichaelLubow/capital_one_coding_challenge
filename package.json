@@ -10,7 +10,6 @@
   "author": "Michael Lubow",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.2",
     "restify": "^4.3.0",
     "superagent": "^3.3.1"
   }
