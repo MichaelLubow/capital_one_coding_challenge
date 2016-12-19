@@ -91,86 +91,107 @@ var publicMethods = {
   },
 
   calculateStats: function calculateStats(obj){
-    var findMin = function findMin(){
+    var findMin = function findMin(metric){
       console.log('Inside findMin');
-      //ensure the array is sorted by timestamp
-      var sortedArr = measurements.sort(function(m1, m2){
-        if (m1.timestamp.getTime() > m2.timestamp.getTime()) {
-          return 1;
-        }
-        if (m1.timestamp.getTime() < m2.timestamp.getTime()) {
-          return -1;
-        }
-        return 0;
+
+      var fromDateTime = (new Date(obj.fromDateTime)).getTime();
+      var toDateTime = (new Date(obj.toDateTime)).getTime();
+
+      console.log('fromDateTime ', fromDateTime);
+      console.log("toDateTime ", toDateTime);
+
+      //ensure the array is filtered by the timestamp range
+      var filteredArr = measurements.filter(function(measurement){
+        return measurement[metric] && measurement.timestamp.getTime() >= fromDateTime && measurement.timestamp.getTime() < toDateTime;
       });
 
-      console.log('sortedArr is ', sortedArr);
-      var min = sortedArr[0].temperature;
+      console.log('filteredArr is ', filteredArr);
 
-      sortedArr.forEach(function(measurement, index){
-        if(measurement.temperature < min){
-          min = measurement.temperature;
-        }
-      });
-      return min;
+      if(filteredArr.length > 0) {
+        var min = filteredArr[0][metric];
+
+        filteredArr.forEach(function (measurement) {
+          if (measurement[metric] < min) {
+            min = measurement[metric];
+          }
+        });
+        return {metric: metric, stat: 'min', value: min};
+      }
+      else {
+        return null;
+      }
     };
 
-    var findMax = function findMax(){
+    var findMax = function findMax(metric){
       console.log('Inside findMax');
-      //ensure the array is sorted by timestamp
-      var sortedArr = measurements.sort(function(m1, m2){
-        if (m1.timestamp.getTime() > m2.timestamp.getTime()) {
-          return 1;
-        }
-        if (m1.timestamp.getTime() < m2.timestamp.getTime()) {
-          return -1;
-        }
-        return 0;
+
+      var fromDateTime = (new Date(obj.fromDateTime)).getTime();
+      var toDateTime = (new Date(obj.toDateTime)).getTime();
+
+      //ensure the array is filtered by the timestamp range
+      var filteredArr = measurements.filter(function(measurement){
+        return measurement[metric] && measurement.timestamp.getTime() >= fromDateTime && measurement.timestamp.getTime() < toDateTime;
       });
 
-      console.log('sortedArr is ', sortedArr);
-      var max = sortedArr[0].temperature;
+      console.log('filteredArr is ', filteredArr);
+      if(filteredArr.length > 0) {
+        var max = filteredArr[0][metric];
 
-      sortedArr.forEach(function(measurement, index){
-        if(measurement.temperature > max){
-          max = measurement.temperature;
-        }
-      });
-      return max;
+        filteredArr.forEach(function (measurement) {
+          if (measurement[metric] > max) {
+            max = measurement[metric];
+          }
+        });
+        return {metric: metric, stat: 'max', value: max};
+      }
+      else {
+        return null;
+      }
     };
 
-    var findAverage = function findAverage(){
+    var findAverage = function findAverage(metric){
       console.log('Inside findAverage');
-      //ensure the array is sorted by timestamp
-      var sortedArr = measurements.sort(function(m1, m2){
-        if (m1.timestamp.getTime() > m2.timestamp.getTime()) {
-          return 1;
-        }
-        if (m1.timestamp.getTime() < m2.timestamp.getTime()) {
-          return -1;
-        }
-        return 0;
+      var fromDateTime = (new Date(obj.fromDateTime)).getTime();
+      var toDateTime = (new Date(obj.toDateTime)).getTime();
+
+      //ensure the array is filtered by the timestamp range
+      var filteredArr = measurements.filter(function(measurement){
+        return measurement[metric] && measurement.timestamp.getTime() >= fromDateTime && measurement.timestamp.getTime() < toDateTime;
       });
 
-      console.log('sortedArr is ', sortedArr);
-      var sum = 0;
+      console.log('filteredArr is ', filteredArr);
+      if(filteredArr.length > 0) {
+        var sum = 0;
 
-      sortedArr.forEach(function(measurement, index){
-        sum = sum + measurement.temperature;
-      });
+        filteredArr.forEach(function (measurement) {
+          sum = sum + measurement[metric];
+        });
 
-      return sum / sortedArr.length;
+        return {metric: metric, stat: 'average', value: sum / filteredArr.length};
+      }
+      else {
+        return null;
+      }
     };
 
     var statistics = [];
     if(obj.stat.includes('min')){
-      statistics.push(findMin());
+      var minResult = findMin(obj.metric);
+      if(minResult) {
+        statistics.push(minResult);
+      }
     }
     if(obj.stat.includes('max')){
-      statistics.push(findMax());
+      var maxResult = findMax(obj.metric);
+      if(maxResult) {
+        statistics.push(maxResult);
+      }
     }
     if(obj.stat.includes('average')){
-      statistics.push(findAverage());
+      var averageResult = findAverage(obj.metric);
+      if(averageResult) {
+        statistics.push(averageResult);
+      }
     }
 
     console.log('statistics is ', statistics);

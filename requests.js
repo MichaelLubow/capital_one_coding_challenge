@@ -329,4 +329,13 @@ makePostRequest('http://localhost:8080/measurements', {
 });
 
 //Scenario 1 (Get stats for a well-reported metric)
-makeGetRequest('http://localhost:8080/stats?stat=min&stat=max&stat=average&metric=temperature&fromDateTime=2015-09-01T16:00:00.000Z&toDateTime=2015-09-01T17:00:00.000Z');
+//makeGetRequest('http://localhost:8080/stats?stat=min&stat=max&stat=average&metric=temperature&fromDateTime=2015-09-01T16:00:00.000Z&toDateTime=2015-09-01T17:00:00.000Z');
+
+//Scenario 2 (Get stats for a sparsely reported metric)
+//makeGetRequest('http://localhost:8080/stats?stat=min&stat=max&stat=average&metric=dewPoint&fromDateTime=2015-09-01T16:00:00.000Z&toDateTime=2015-09-01T17:00:00.000Z');
+
+//Scenario 3 (Get stats for a metric that has never been reported)
+//makeGetRequest('http://localhost:8080/stats?stat=min&stat=max&stat=average&metric=precipitation&fromDateTime=2015-09-01T16:00:00.000Z&toDateTime=2015-09-01T17:00:00.000Z');
+
+//Scenario 4 (Get stats for more than one metric)
+makeGetRequest('http://localhost:8080/stats?stat=min&stat=max&stat=average&metric=temperature&metric=dewPoint&metric=precipitation&fromDateTime=2015-09-01T16:00:00.000Z&toDateTime=2015-09-01T17:00:00.000Z');
