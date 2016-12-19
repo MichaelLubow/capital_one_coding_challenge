@@ -38,27 +38,30 @@ var routeHandlers = {
 
   getMeasurementByTimestamp: function getMeasurementByTimestamp(req, res){
     console.log('req.params is ', req.params);
+    console.log('inside getMeasurementByTimestamp');
     var timestamp = req.params.timestamp;
     console.log('timestamp is ', timestamp);
-    var result = measurementData.find({key: 'timestamp', value: timestamp});
+
+    var ISO_8601 = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$/i;
+    var isISO_8601 = ISO_8601.test(timestamp);
+    console.log('ISO_8601.test(timestamp) ', isISO_8601);
+
+    var isDate = false;
+    if(!isISO_8601){
+      console.log("am here ");
+      var dateElements = timestamp.match(/^(\d{4})-(\d\d)-(\d\d)$/);
+      console.log("dateElements ", dateElements);
+      timestamp = new Date(dateElements[1], dateElements[2] - 1, dateElements[3]);
+      console.log("timestamp ", timestamp);
+      isDate = true;
+    }
+    var result = measurementData.find({key: 'timestamp', value: timestamp, isDate: isDate});
     console.log("result ", result);
-    if(result.length > 0){
+    if(result.length === 1){
       res.send(200, {measurement: result[0]});
     }
-    else {
-      res.send(404);
-    }
-  },
-
-  getMeasurementsByDate: function getMeasurementsByDate(req, res){
-    console.log("inside getMeasurementsByDate");
-    console.log('req.params is ', req.params);
-    var date = new Date(req.params.date);
-    console.log('mike date is ', date);
-    var results = measurementData.find({key: 'timestamp', value: date.toISOString()});
-    console.log("results ", results);
-    if(results){
-      res.send(200, {measurements: results});
+    else if(result.length > 1){
+      res.send(200, {measurement: result});
     }
     else {
       res.send(404);

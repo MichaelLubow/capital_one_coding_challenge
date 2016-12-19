@@ -7,19 +7,37 @@ var publicMethods = {
     measurements.push(measurement);
   },
 
-  // find: function find(timestamp){
-  //   console.log("inside find ");
-  //   return measurements.find(function(obj){
-  //     return obj.timestamp === timestamp;
-  //   });
-  // },
-
   find: function find(obj){
     console.log('obj is ', obj);
     return measurements.filter(function(measurement){
       console.log('measurement[obj.key] is ', measurement[obj.key]);
       console.log('obj.value is ', obj.value);
-      return measurement[obj.key] === obj.value;
+      if(obj.key === 'timestamp') {
+        if(obj.isDate){
+          console.log('inIsDate');
+          var queryDate = obj.value;
+          console.log(queryDate.getDate());
+          console.log(queryDate.getMonth());
+          console.log(queryDate.getFullYear());
+
+          console.log("-----------");
+
+          console.log(measurement[obj.key].getDate());
+          console.log(measurement[obj.key].getMonth());
+          console.log(measurement[obj.key].getFullYear());
+
+          return (measurement[obj.key].getDate() === queryDate.getDate() &&
+            measurement[obj.key].getMonth() === queryDate.getMonth() &&
+            measurement[obj.key].getFullYear() === queryDate.getFullYear()
+          );
+        }
+        else {
+          return measurement[obj.key].getTime() === (new Date(obj.value)).getTime();
+        }
+      }
+      else {
+        return measurement[obj.key] === obj.value;
+      }
     });
   },
 

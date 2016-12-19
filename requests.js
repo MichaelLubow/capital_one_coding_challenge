@@ -21,7 +21,6 @@ function makeDeleteRequest(apiEndpointURL){
     });
 }
 
-
 function makePatchRequest(apiEndpointURL, data){
   request
     .patch(apiEndpointURL)
@@ -43,7 +42,6 @@ function makePatchRequest(apiEndpointURL, data){
     });
 }
 
-
 function makePutRequest(apiEndpointURL, data){
   request
     .put(apiEndpointURL)
@@ -64,9 +62,6 @@ function makePutRequest(apiEndpointURL, data){
       }
     });
 }
-
-
-
 
 function makePostRequest(apiEndpointURL, data){
   request
@@ -111,73 +106,73 @@ function makeGetRequest(apiEndpointURL){
 //------------------------------------------------------------------------
 
 /*//Scenario 1 (Add a measurement with valid (numeric) values
-makePostRequest('http://localhost:8080/measurements', {
-  timestamp: "2015-09-01T16:00:00.000Z",
-  temperature: 27.1,
-  dewPoint: 16.7,
-  precipitation: 0
-});
+ makePostRequest('http://localhost:8080/measurements', {
+ timestamp: "2015-09-01T16:00:00.000Z",
+ temperature: 27.1,
+ dewPoint: 16.7,
+ precipitation: 0
+ });
 
-//Scenario 2 (Cannot add a measurement with invalid values)
-makePostRequest('http://localhost:8080/measurements', {
-  timestamp: "2015-09-01T16:00:00.000Z",
-  temperature: "not a number",
-  dewPoint: 16.7,
-  precipitation: 0
-});
+ //Scenario 2 (Cannot add a measurement with invalid values)
+ makePostRequest('http://localhost:8080/measurements', {
+ timestamp: "2015-09-01T16:00:00.000Z",
+ temperature: "not a number",
+ dewPoint: 16.7,
+ precipitation: 0
+ });
 
-//Scenario 3 (Cannot add a measurement without a timestamp)
-makePostRequest('http://localhost:8080/measurements', {
-  temperature: 27.1,
-  dewPoint: 20,
-  precipitation: 0
-});*/
+ //Scenario 3 (Cannot add a measurement without a timestamp)
+ makePostRequest('http://localhost:8080/measurements', {
+ temperature: 27.1,
+ dewPoint: 20,
+ precipitation: 0
+ });*/
 
 //------------------------------------------------------------------------
 //  Feature 2
 //------------------------------------------------------------------------
 
-// makePostRequest('http://localhost:8080/measurements', {
-//   timestamp: "2015-09-01T16:00:00.000Z",
-//   temperature: 27.1,
-//   dewPoint: 16.7,
-//   precipitation: 0
-// });
-//
-// makePostRequest('http://localhost:8080/measurements', {
-//   timestamp: "2015-09-01T16:10:00.000Z",
-//   temperature: 27.3,
-//   dewPoint: 16.9,
-//   precipitation: 0
-// });
-//
-// makePostRequest('http://localhost:8080/measurements', {
-//   timestamp: "2015-09-01T16:20:00.000Z",
-//   temperature: 27.5,
-//   dewPoint: 17.1,
-//   precipitation: 0
-// });
-//
-// makePostRequest('http://localhost:8080/measurements', {
-//   timestamp: "2015-09-01T16:30:00.000Z",
-//   temperature: 27.4,
-//   dewPoint: 17.3,
-//   precipitation: 0
-// });
-//
-// makePostRequest('http://localhost:8080/measurements', {
-//   timestamp: "2015-09-01T16:40:00.000Z",
-//   temperature: 27.2,
-//   dewPoint: 17.2,
-//   precipitation: 0
-// });
-//
-// makePostRequest('http://localhost:8080/measurements', {
-//   timestamp: "2015-09-02T16:00:00.000Z",
-//   temperature: 28.1,
-//   dewPoint: 18.3,
-//   precipitation: 0
-// });
+makePostRequest('http://localhost:8080/measurements', {
+  timestamp: "2015-09-01T16:00:00.000Z",
+  temperature: 27.1,
+  dewPoint: 16.7,
+  precipitation: 0
+});
+
+makePostRequest('http://localhost:8080/measurements', {
+  timestamp: "2015-09-01T16:10:00.000Z",
+  temperature: 27.3,
+  dewPoint: 16.9,
+  precipitation: 0
+});
+
+makePostRequest('http://localhost:8080/measurements', {
+  timestamp: "2015-09-01T16:20:00.000Z",
+  temperature: 27.5,
+  dewPoint: 17.1,
+  precipitation: 0
+});
+
+makePostRequest('http://localhost:8080/measurements', {
+  timestamp: "2015-09-01T16:30:00.000Z",
+  temperature: 27.4,
+  dewPoint: 17.3,
+  precipitation: 0
+});
+
+makePostRequest('http://localhost:8080/measurements', {
+  timestamp: "2015-09-01T16:40:00.000Z",
+  temperature: 27.2,
+  dewPoint: 17.2,
+  precipitation: 0
+});
+
+makePostRequest('http://localhost:8080/measurements', {
+  timestamp: "2015-09-02T16:00:00.000Z",
+  temperature: 28.1,
+  dewPoint: 18.3,
+  precipitation: 0
+});
 
 //Scenario 1 (Get a specific measurement)
 //makeGetRequest('http://localhost:8080/measurements/2015-09-01T16:20:00.000Z');
@@ -189,7 +184,7 @@ makePostRequest('http://localhost:8080/measurements', {
 //makeGetRequest('http://localhost:8080/measurements/2015-09-01');
 
 // //Scenario 4 (Get measurement from a day where no measurements were taken.)
-// makeGetRequest('http://localhost:8080/measurements/2015-09-03');
+ makeGetRequest('http://localhost:8080/measurements/2015-09-03');
 
 //------------------------------------------------------------------------
 //  Feature 3
@@ -294,39 +289,39 @@ makePostRequest('http://localhost:8080/measurements', {
 //  Feature 5
 //------------------------------------------------------------------------
 
-makePostRequest('http://localhost:8080/measurements', {
-  timestamp: "2015-09-01T16:00:00.000Z",
-  temperature: 27.1,
-  dewPoint: 16.9
-});
+/*makePostRequest('http://localhost:8080/measurements', {
+ timestamp: "2015-09-01T16:00:00.000Z",
+ temperature: 27.1,
+ dewPoint: 16.9
+ });
 
-makePostRequest('http://localhost:8080/measurements', {
-  timestamp: "2015-09-01T16:10:00.000Z",
-  temperature: 27.3
-});
+ makePostRequest('http://localhost:8080/measurements', {
+ timestamp: "2015-09-01T16:10:00.000Z",
+ temperature: 27.3
+ });
 
-makePostRequest('http://localhost:8080/measurements', {
-  timestamp: "2015-09-01T16:20:00.000Z",
-  temperature: 27.5,
-  dewPoint: 17.1
-});
+ makePostRequest('http://localhost:8080/measurements', {
+ timestamp: "2015-09-01T16:20:00.000Z",
+ temperature: 27.5,
+ dewPoint: 17.1
+ });
 
-makePostRequest('http://localhost:8080/measurements', {
-  timestamp: "2015-09-01T16:30:00.000Z",
-  temperature: 27.4,
-  dewPoint: 17.3
-});
+ makePostRequest('http://localhost:8080/measurements', {
+ timestamp: "2015-09-01T16:30:00.000Z",
+ temperature: 27.4,
+ dewPoint: 17.3
+ });
 
-makePostRequest('http://localhost:8080/measurements', {
-  timestamp: "2015-09-01T16:40:00.000Z",
-  temperature: 27.2
-});
+ makePostRequest('http://localhost:8080/measurements', {
+ timestamp: "2015-09-01T16:40:00.000Z",
+ temperature: 27.2
+ });
 
-makePostRequest('http://localhost:8080/measurements', {
-  timestamp: "2015-09-01T17:00:00.000Z",
-  temperature: 28.1,
-  dewPoint: 18.3
-});
+ makePostRequest('http://localhost:8080/measurements', {
+ timestamp: "2015-09-01T17:00:00.000Z",
+ temperature: 28.1,
+ dewPoint: 18.3
+ });*/
 
 //Scenario 1 (Get stats for a well-reported metric)
 //makeGetRequest('http://localhost:8080/stats?stat=min&stat=max&stat=average&metric=temperature&fromDateTime=2015-09-01T16:00:00.000Z&toDateTime=2015-09-01T17:00:00.000Z');
@@ -338,4 +333,4 @@ makePostRequest('http://localhost:8080/measurements', {
 //makeGetRequest('http://localhost:8080/stats?stat=min&stat=max&stat=average&metric=precipitation&fromDateTime=2015-09-01T16:00:00.000Z&toDateTime=2015-09-01T17:00:00.000Z');
 
 //Scenario 4 (Get stats for more than one metric)
-makeGetRequest('http://localhost:8080/stats?stat=min&stat=max&stat=average&metric=temperature&metric=dewPoint&metric=precipitation&fromDateTime=2015-09-01T16:00:00.000Z&toDateTime=2015-09-01T17:00:00.000Z');
+//makeGetRequest('http://localhost:8080/stats?stat=min&stat=max&stat=average&metric=temperature&metric=dewPoint&metric=precipitation&fromDateTime=2015-09-01T16:00:00.000Z&toDateTime=2015-09-01T17:00:00.000Z');

@@ -14,16 +14,12 @@ server.use(restify.bodyParser({
 server.use(restify.queryParser());
 
 server.post('/measurements', routeHandlers.postMeasurements);
-// server.get('/measurements/:timestamp', function(req, res, next){
-//   console.log("req.params ", req.params);
-//   routeHandlers.getMeasurementByTimestamp(req, res);
-// });
-server.get('/measurements/:date', routeHandlers.getMeasurementsByDate);
+server.get('/measurements/:timestamp', routeHandlers.getMeasurementByTimestamp);
+server.get('/measurements/:date', routeHandlers.getMeasurementByTimestamp);
 server.put('/measurements/:timestamp', routeHandlers.updateMeasurement);
 server.patch('/measurements/:timestamp', routeHandlers.patchMeasurement);
 server.del('/measurements/:timestamp', routeHandlers.deleteMeasurement);
 server.get('/stats', routeHandlers.getStats);
-
 
 console.log('server is ', server.name);
 console.log("server.url ", server.url);
